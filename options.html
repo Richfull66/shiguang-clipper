@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>时光库 · 设置</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="head">
+      <img src="icons/icon128.png" alt="" class="logo">
+      <div>
+        <h1>时光库 · 设置</h1>
+        <p class="sub">把网页正文和图片保存到你的 GitHub 仓库</p>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>GitHub 访问</h2>
+      <p class="hint">
+        需要一个有 <b>Contents: Read and write</b> 权限的 Personal Access Token。
+        推荐使用 Fine-grained token，并只勾选 <code>shiguang</code> 仓库。
+        <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noreferrer">创建 Token</a>
+        ·
+        <a href="https://github.com/settings/tokens/new?scopes=repo&amp;description=shiguang-clipper" target="_blank" rel="noreferrer">使用经典 Token（勾选 repo）</a>
+      </p>
+
+      <label class="field">
+        <span>Token</span>
+        <div class="input-row">
+          <input id="token" type="password" placeholder="github_pat_… 或 ghp_…" autocomplete="off" spellcheck="false">
+          <button id="toggleToken" class="btn ghost" type="button">显示</button>
+        </div>
+      </label>
+
+      <div class="grid">
+        <label class="field">
+          <span>仓库所有者</span>
+          <input id="owner" type="text" placeholder="Richfull66" spellcheck="false">
+        </label>
+        <label class="field">
+          <span>仓库名</span>
+          <input id="repo" type="text" placeholder="shiguang" spellcheck="false">
+        </label>
+      </div>
+
+      <div class="grid">
+        <label class="field">
+          <span>分支 <em>（留空用默认分支）</em></span>
+          <input id="branch" type="text" placeholder="main" spellcheck="false">
+        </label>
+        <label class="field">
+          <span>保存目录前缀</span>
+          <input id="basePath" type="text" placeholder="clips" spellcheck="false">
+        </label>
+      </div>
+
+      <div class="grid">
+        <label class="field">
+          <span>单次最多图片数</span>
+          <input id="maxImages" type="number" min="1" max="60" step="1" value="30">
+        </label>
+        <label class="field">
+          <span>单张图片上限（MB）</span>
+          <input id="maxImageMB" type="number" min="1" max="50" step="1" value="8">
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="testBtn" class="btn secondary" type="button">测试连接</button>
+        <button id="saveBtn" class="btn primary" type="button">保存设置</button>
+        <span id="status" class="status"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>保存规则</h2>
+      <ul class="rules">
+        <li>目录结构：<code>clips/2026-10-31/页面标题-1830/index.md</code></li>
+        <li>图片存放在同一目录的 <code>images/</code> 下，Markdown 用相对路径引用。</li>
+        <li>Markdown 头部包含标题、来源链接、站点、作者、保存时间等字段。</li>
+        <li>图片下载失败时自动保留原始链接，不会中断保存。</li>
+        <li>每次保存只生成一个 Git 提交（图片和 Markdown 一起提交）。</li>
+        <li>仓库为空时，第一次保存会自动创建首个提交。</li>
+      </ul>
+    </section>
+
+    <section class="card security">
+      <h2>安全说明</h2>
+      <p>
+        Token 仅保存在本机的 <code>chrome.storage.local</code>，不会同步到其他设备，也不会发送给除
+        <code>api.github.com</code> 以外的任何服务器。请勿把 Token 写进代码或分享给他人；
+        若怀疑泄露，请立即到 GitHub 撤销并重新生成。
+      </p>
+      <p>保存的内容会进入你指定的仓库，若仓库是公开的，请注意页面中是否含敏感信息。</p>
+    </section>
+
+    <p class="version">时光库 Clipper v1.0.0</p>
+  </main>
+  <script src="options.js"></script>
+</body>
+</html>
